@@ -11,41 +11,35 @@
 --]]
  
 stations = {
-	{ name = "RUV 426x240", url = "http://ruvruv-live.hls.adaptive.level3.net/ruv/ruv/index/stream1.m3u8" },
-	{ name = "RUV 640x360", url = "http://ruvruv-live.hls.adaptive.level3.net/ruv/ruv/index/stream2.m3u8" },
-	{ name = "RUV 852x480", url = "http://ruvruv-live.hls.adaptive.level3.net/ruv/ruv/index/stream3.m3u8" },
-	{ name = "RUV 1280x720", url = "http://ruvruv-live.hls.adaptive.level3.net/ruv/ruv/index/stream4.m3u8"},
-	{ name = "RUV 2 426x240", url = "http://ruvruv2-live.hls.adaptive.level3.net/ruv/ruv2/index/stream1.m3u8"},
-	{ name = "RUV 2 640x360", url = "http://ruvruv2-live.hls.adaptive.level3.net/ruv/ruv2/index/stream2.m3u8"},
-	{ name = "RUV 2 852x480", url = "http://ruvruv2-live.hls.adaptive.level3.net/ruv/ruv2/index/stream3.m3u8"},
-	{ name = "RUV 2 1280x720", url = "http://ruvruv2-live.hls.adaptive.level3.net/ruv/ruv2/index/stream4.m3u8"},
-	{ name = "INN", url = "rtmp://79.171.99.70:1935/webtv/innwebtv.stream"},
- 	{ name = "N4", url = "http://tv.vodafoneplay.is/n4/index.m3u8"},
-	{ name = "Xid977", url = "http://utvarp.visir.is/x-id" },
-	{ name = "Ras 1", url = "http://dagskra.ruv.is/ras1/streymi/beint/?48" },
-	{ name = "Ras 2", url = "http://dagskra.ruv.is/ras2/streymi/beint/?21" },
-	{ name = "Rondo", url = "http://dagskra.ruv.is/rondo/streymi/beint/?79"},
-	{ name = "Bylgjan", url = "mmsh://212.30.231.4:80/bylgjan"},
-	{ name = "Gull Bylgjan", url = "mmsh://212.30.231.4:80/gull-bylgjan"},
-	{ name = "FM 957", url = "mmsh://212.30.231.4:80/fm957"},
-	{ name = "KissFM", url = "http://stream.radio.is:443/kiss"},
-	{ name = "FlashBack", url = "http://stream.radio.is:443/flashback"},
-	{ name = "FmXtra", url = "http://stream.radio.is:443/fmxtra"}
+    { name = "Rúv - Rás 1", url = "https://ruv-radio-live.akamaized.net/streymi/ras1/ras1/ras1.m3u8" },
+    { name = "Rúv - Rás 2", url = "https://ruv-radio-live.akamaized.net/streymi/ras2/ras2/ras2.m3u8" },
+    { name = "Rúv - Rondo", url = "https://ruv-radio-live.akamaized.net/streymi/rondo/rondo/rondo.m3u8" },
+    { name = "Bylgjan", url = "https://live.visir.is/hls-radio/bylgjan/chunklist_DVR.m3u8" },
+    { name = "Bylgjan - Gull", url = "https://live.visir.is/hls-radio/gullbylgjan/chunklist_DVR.m3u8" },
+    { name = "Bylgjan - Létt", url = "https://live.visir.is/hls-radio/lettbylgjan/chunklist_DVR.m3u8" },
+    { name = "Bylgjan - Country", url = "https://live.visir.is/hls-radio/fmextra/chunklist_DVR.m3u8" },
+    { name = "Bylgjan - Íslenskt", url = "https://live.visir.is/hls-radio/islenska/chunklist_DVR.m3u8" },
+    { name = "Bylgjan - 80's", url = "https://live.visir.is/hls-radio/80s/chunklist_DVR.m3u8" },
+    { name = "X977", url = "https://live.visir.is/hls-radio/x977/chunklist_DVR.m3u8" },
+    { name = "FM 957", url = "https://live.visir.is/hls-radio/fm957/chunklist_DVR.m3u8" },
+    { name = "Apparatið", url = "https://live.visir.is/hls-radio/apparatid/chunklist_DVR.m3u8" },
 }
  
  
 function descriptor()
-    return { title = "Icelandic Radio" ;
-             version = "1.2" ;
-             author = "Hrafnthor" ;
-             capabilities = {} }
+    return { 
+        title = "Icelandic Radio" ;
+        version = "1.3" ;
+        author = "Hrafn Thorvaldsson" ;
+        capabilities = {} 
+    }
 end
 
 function activate()
-    dialog = vlc.dialog("IS_streamer")
-	list = dialog:add_list()
-	button_play = dialog:add_button("Play", click_play)
-	
+    dialog = vlc.dialog("Icelandic Radio")
+    list = dialog:add_list()
+    button_play = dialog:add_button("Play", click_play)
+
     for index, details in ipairs(stations) do
         list:add_value(details.name, index)
     end
@@ -61,11 +55,10 @@ function click_play()
         break
     end
     details = stations[sel]
- 
-	
-	vlc.playlist.clear()
-	vlc.playlist.add({{path = details.url; title = details.name; name = details.name}})
-	vlc.playlist.play()
+
+    vlc.playlist.clear()
+    vlc.playlist.add({{path = details.url; title = details.name; name = details.name}})
+    vlc.playlist.play()
 end
  
 function deactivate()
