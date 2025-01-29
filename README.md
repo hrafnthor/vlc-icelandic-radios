@@ -1,5 +1,5 @@
-# vlc-icelandic-radios
-VLC extension for playing Icelandic radio channels streams.+
+# VLC Icelandi radio stations
+VLC extension for playing Icelandic radio channels streams.
 
 Add the `is-radio-extension.lua` file under the path corresponding with the operating system in use:
 
@@ -8,3 +8,4 @@ Add the `is-radio-extension.lua` file under the path corresponding with the oper
 - (Mac): /Users/%your_name%/Library/Application Support/org.videolan.vlc/lua/extensions/
 
 Start up VLC and find the extension under 'View' -> 'Icelandic Radio'
+
